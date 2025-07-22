@@ -9,6 +9,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/profile', [\App\Http\Controllers\Api\ProfileController::class,'getUserProfile']);
     Route::patch('/profile', [\App\Http\Controllers\Api\ProfileController::class,'update']);
     Route::post('/tasks', [\App\Http\Controllers\Api\TaskController::class,'store']);
+    Route::get('/tasks', [\App\Http\Controllers\Api\TaskController::class,'index']);
 });
 
 //Routes publiques

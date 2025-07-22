@@ -22,4 +22,11 @@ class TaskController extends Controller
        return response()->json($task,status: 201);
    }
 
+   public function index(Request $request){
+
+       $tasks = $request->user()->tasks()->get();
+
+       return response()->json($tasks,200);
+   }
+
 }
