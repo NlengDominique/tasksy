@@ -29,4 +29,15 @@ class TaskController extends Controller
        return response()->json($tasks,200);
    }
 
+   public function show(Request $request, $id)
+   {
+        $task = $request->user()->tasks()->find($id);
+
+        if(!$task){
+            return response()->json(['message' => 'Task not found'], 404);
+        }
+
+        return response()->json($task, 200);
+   }
+
 }
