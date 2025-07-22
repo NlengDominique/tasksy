@@ -79,4 +79,19 @@ class TaskController extends Controller
        return response()->json(['message' => 'Task deleted successfully'], 200);
    }
 
+   public function updateStatus(Request $request, $id){
+       $task = $request->user()->tasks()->find($id);
+       if(!$task){
+           return response()->json(['message' => 'Task not found'], 404);
+       }
+        Gate::authorize('update-task-status',$task);
+       $data = $request->validate([
+           'status'=>'required|string|in:en attente,terminee',
+       ]);
+
+       $task->update($data);
+
+       return response()->json(["message" => "Task status updated successfully"],200);
+   }
+
 }

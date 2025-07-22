@@ -13,6 +13,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/tasks/{id}', [\App\Http\Controllers\Api\TaskController::class,'show']);
     Route::put('/tasks/{id}', [\App\Http\Controllers\Api\TaskController::class,'update']);
     Route::delete('/tasks/{id}', [\App\Http\Controllers\Api\TaskController::class,'destroy']);
+    Route::patch('/tasks/{id}/completed',[\App\Http\Controllers\Api\TaskController::class,'updateStatus']);
 });
 
 //Routes publiques
