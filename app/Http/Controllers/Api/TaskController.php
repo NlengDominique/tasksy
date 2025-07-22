@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -92,6 +93,13 @@ class TaskController extends Controller
        $task->update($data);
 
        return response()->json(["message" => "Task status updated successfully"],200);
+   }
+
+
+   public function getAllCompleteTasks(Request $request){
+       $user = $request->user();
+       $tasks = $user->tasks()->where('status', 'terminee')->get();
+       return response()->json([$tasks,200]);
    }
 
 }

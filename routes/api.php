@@ -14,6 +14,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/tasks/{id}', [\App\Http\Controllers\Api\TaskController::class,'update']);
     Route::delete('/tasks/{id}', [\App\Http\Controllers\Api\TaskController::class,'destroy']);
     Route::patch('/tasks/{id}/completed',[\App\Http\Controllers\Api\TaskController::class,'updateStatus']);
+    Route::get('/completed/tasks',[\App\Http\Controllers\Api\TaskController::class,'getAllCompleteTasks']);
+
 });
 
 //Routes publiques
