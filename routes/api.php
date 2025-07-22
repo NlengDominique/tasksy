@@ -11,6 +11,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/tasks', [\App\Http\Controllers\Api\TaskController::class,'store']);
     Route::get('/tasks', [\App\Http\Controllers\Api\TaskController::class,'index']);
     Route::get('/tasks/{id}', [\App\Http\Controllers\Api\TaskController::class,'show']);
+    Route::put('/tasks/{id}', [\App\Http\Controllers\Api\TaskController::class,'update']);
 });
 
 //Routes publiques

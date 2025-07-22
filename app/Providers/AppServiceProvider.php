@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -25,5 +26,11 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('update-profile', function (User $authUser, User $profileUser) {
             return $authUser->id === $profileUser->id;
         });
+
+        Gate::define('update-task', function (User $user, Task $task){
+            return $user->id === $task->user_id;
+        });
+
+
     }
 }
