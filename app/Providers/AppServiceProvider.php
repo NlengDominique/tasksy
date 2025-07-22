@@ -4,6 +4,9 @@ namespace App\Providers;
 
 use App\Models\Task;
 use App\Models\User;
+use Dedoc\Scramble\Scramble;
+use Dedoc\Scramble\Support\Generator\OpenApi;
+use Dedoc\Scramble\Support\Generator\SecurityScheme;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
@@ -37,6 +40,13 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('update-task-status', function (User $user, Task $task){
             return $user->id === $task->user_id;
         });
+
+        Scramble::configure()
+            ->withDocumentTransformers(function (OpenApi $openApi) {
+                $openApi->secure(
+                    SecurityScheme::http('bearer')
+                );
+            });
 
 
     }
