@@ -30,6 +30,10 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('update-task', function (User $user, Task $task){
             return $user->id === $task->user_id;
         });
+        Gate::define('delete-task', function (User $user, Task $task){
+            return $user->id === $task->user_id;
+        });
+
 
 
     }

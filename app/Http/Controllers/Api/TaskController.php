@@ -8,20 +8,6 @@ use Illuminate\Support\Facades\Gate;
 
 class TaskController extends Controller
 {
-   public function store(Request $request){
-
-       $data = $request->validate([
-            'title'=>'string|required|min:5',
-           'description'=>'sometimes|string|min:5',
-           'dateEcheance'=>'date|required',
-           'priority'=>'sometimes|string|in:faible,moyen,eleve',
-           'status'=>'sometimes|string|in:en attente,terminee',
-       ]);
-
-       $task = $request->user()->tasks()->create($data);
-
-       return response()->json($task,status: 201);
-   }
 
    public function index(Request $request){
 
@@ -29,6 +15,21 @@ class TaskController extends Controller
 
        return response()->json($tasks,200);
    }
+
+    public function store(Request $request){
+
+        $data = $request->validate([
+            'title'=>'string|required|min:5',
+            'description'=>'sometimes|string|min:5',
+            'dateEcheance'=>'date|required',
+            'priority'=>'sometimes|string|in:faible,moyen,eleve',
+            'status'=>'sometimes|string|in:en attente,terminee',
+        ]);
+
+        $task = $request->user()->tasks()->create($data);
+
+        return response()->json($task,status: 201);
+    }
 
    public function show(Request $request, $id)
    {
@@ -64,6 +65,18 @@ class TaskController extends Controller
 
        return response()->json($task, 200);
 
+   }
+
+   public function destroy(Request $request, $id){
+       $task = $request->user()->tasks()->find($id);
+       if(!$task){
+           return response()->json(['message' => 'Task not found'], 404);
+       }
+
+       Gate::authorize('delete-task', $task);
+
+       $task->delete();
+       return response()->json(['message' => 'Task deleted successfully'], 200);
    }
 
 }
