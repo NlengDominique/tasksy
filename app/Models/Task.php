@@ -15,6 +15,11 @@ class Task extends Model
         'user_id'
     ];
 
+    protected $casts = [
+        'dateEcheance' => 'datetime',
+        'status' => 'boolean',
+    ];
+
 
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
